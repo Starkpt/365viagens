@@ -1,0 +1,62 @@
+@import url('./variables.scss');
+
+.navbar{
+  height:40px;
+  display: flex;
+  justify-content:space-between;
+  padding: 0 5vw;
+  color: $logo-color;
+  
+  
+  .logo-container{
+    width: 160px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .navbar-horizontal,
+  .navbar-horizontal > *{
+    width: 160px;
+    height: 27px;
+  }
+  
+  .navbar-squared,
+  .navbar-squared > *{
+    width: 30px;
+    height: 19px;
+    display: none;
+  }
+  
+  .navbar-horizontal > *,
+  .navbar-squared > * {
+    position: relative !important;
+  }
+  
+  .navbar-list-container,
+  ul.navbar-list{
+    display: flex;
+  }
+  
+  ul.navbar-list{
+    align-items: center;
+    
+    
+    li{
+      width: 80px;
+      height: 28px;
+      background:#eee;
+      margin-left: 10px;
+      
+      
+      a{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 2.5px;
+        font-size: .9rem;
+      }
+    }
+  }
+} 
