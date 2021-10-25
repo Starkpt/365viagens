@@ -12,7 +12,7 @@
   background-size: cover;
   background-position: center;
   align-items: center;
-
+  color: $primary-color;
 
   > *{
     padding: 30px;
@@ -175,7 +175,9 @@
     align-items: center;
 
     a{
-      text-align: center;
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
     }
     p{
       font-weight: bold;
