@@ -1,11 +1,12 @@
-@import url('./variables.scss');
+@import 'variables.scss';
 
 .navbar{
   height:40px;
   display: flex;
   justify-content:space-between;
-  padding: 0 5vw;
-  color: $logo-color;
+  padding: 0 10vw;
+  color: #fff;
+  color:#041DB8;
   
   
   .logo-container{
@@ -44,10 +45,14 @@
     li{
       width: 80px;
       height: 28px;
-      background:#eee;
+      // background:#eee;
       margin-left: 10px;
-      
-      
+      font-weight: 900;
+
+      :hover{
+        background-color: $light-gray;
+      }
+    
       a{
         height: 100%;
         width: 100%;
@@ -56,6 +61,7 @@
         justify-content: center;
         padding-top: 2.5px;
         font-size: .9rem;
+        
       }
     }
   }

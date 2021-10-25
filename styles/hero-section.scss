@@ -1,0 +1,185 @@
+
+@import 'variables.scss';
+
+#hero-section{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 60vh;
+  background-image: url('../public/rscs/imgs/Cuba_-_Havana_+_Varadero.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  align-items: center;
+
+
+  > *{
+    padding: 30px;
+  }
+
+  .promotions-flight{
+    height: 275px;
+    width: 1150px;
+    background-color: $light-gray;
+    padding: 30px;
+    padding-top: 15px;
+    border-radius:2px;
+    margin-bottom: 30px;
+
+    #hero-promotions{
+      
+      h3{
+        margin-bottom: 10px;
+      }
+      ul{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        li{
+          width: 150px;
+          height: 200px;
+          background-image: url('../public/rscs/imgs/4_Capitais_Europa_Central.jpg');
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          border-radius:2px;
+
+          a{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            gap:8px;
+            justify-content: space-between;
+            padding: 8px;
+            
+            *{
+              align-self: self-end;
+              font-weight: bold;
+              z-index: 2;
+              color: white;
+            }
+
+            h4{
+              line-height: 25px;          
+              word-break: break-word;
+            }
+
+            p{
+              padding: 6px;
+              background-color: rgba(31, 183, 65, 0.8);
+              height: 29px;
+              line-height: 22px;
+              border-radius: 2px;
+              font-size: .9rem;
+            }
+            &:hover::after{
+              background-color: rgba(255,255,255,0.2);
+            }
+            &::after{
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              z-index: 1;
+              width: 100%;
+              height: 100%;
+              border-bottom-left-radius: 2px;
+              border-bottom-right-radius: 2px;
+              background-color: transparent;
+              background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(9,43,95,1) 100%);
+              transition: background-color $duration $transition-type;
+            }
+            
+          }
+        }
+      }
+    }
+  }
+
+  #hero-search{
+    width: 1150px;
+    background-color: $light-gray;
+    display: flex;
+    flex-direction: row;
+
+    table{
+      width: 100%;
+
+      tr{
+        width: 100%;
+
+        th,
+        td{
+          width: 25%;
+          
+          input,
+          button{
+            width: 100%;
+            height: 100%;
+            border: 0px;
+            padding: 7px 8px;
+          }
+        }
+
+        th{
+
+          h4{
+            text-align: left;
+          }
+        }
+
+        td{
+          height: 35px;
+
+          input[type="name"]{
+            border-top: 2px;
+            border-bottom: 2px;
+            background-color: $input-bg;
+            border-color: $border-color;
+          }
+          input[type="date"]{
+            width: 50%;
+          }
+          button{
+            cursor: pointer;
+            background-color: $secondary-color;
+            color:$neutral;
+            border-radius:2px; 
+            transition: background-color $duration $transition-type;
+            
+            &:hover{
+              background-color:$primary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #take-flight{
+    position: absolute;
+    bottom: -33px;
+    left: 50%;
+    transform: translate(-50%);
+    width: 80vw;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: $neutral;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    a{
+      text-align: center;
+    }
+    p{
+      font-weight: bold;
+      color: $primary-color;
+    }
+  }
+}

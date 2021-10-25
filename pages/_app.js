@@ -1,5 +1,7 @@
+import '../styles/variables.scss'
 import '../styles/main.scss'
-import '../styles/Navbar.scss'
+import '../styles/navbar.scss'
+import '../styles/hero-section.scss'
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />

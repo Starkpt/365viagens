@@ -1,5 +1,6 @@
 import React from 'react'
-import Navbar from './components/Navbar'
+import Navbar from './components/navbar'
+import HeroSection from './components/heroSection'
 
 
 export default function Home() {
@@ -8,7 +9,9 @@ export default function Home() {
       <header>
         <Navbar />
       </header>
-      <main></main>
+      <main>
+        <HeroSection />
+      </main>
       <footer></footer>
     </>
   )

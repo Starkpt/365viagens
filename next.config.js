@@ -2,8 +2,8 @@ const path = require('path')
 
 module.exports = {
   reactStrictMode: true,
-  basePath:'/public',
+  // basePath:'/public',
   sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
+    includePaths: [path.join(__dirname, '/styles')],
   },
 }
