@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './components/navbar'
 import HeroSection from './components/heroSection'
+import CallToAction from './components/callToAction'
 
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       </header>
       <main>
         <HeroSection />
+        <CallToAction />
       </main>
       <footer></footer>
     </>

@@ -12,7 +12,7 @@ export default function heroSection() {
 
   return (
     <div id="hero-section">
-      <div className="promotions-flight">
+      <div id="promotions-flight">
         <div id="hero-promotions">
           <h3>Promotions</h3>
           <ul>

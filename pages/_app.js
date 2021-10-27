@@ -2,6 +2,7 @@ import '../styles/variables.scss'
 import '../styles/main.scss'
 import '../styles/navbar.scss'
 import '../styles/hero-section.scss'
+import '../styles/call-action.scss'
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
