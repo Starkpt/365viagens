@@ -1,8 +1,12 @@
+// NEXTJS
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+// PROVIDERS
+import AppProviders from "@/app/providers";
+
+// STYLES
+import "@/app/styles/globals.css";
+import { nexa } from "@/app/styles/NexaFont";
 
 export const metadata: Metadata = {
   title: "365 Viagens",
@@ -16,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={nexa.className}>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }
