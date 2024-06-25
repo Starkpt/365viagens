@@ -81,6 +81,7 @@ interface FormValues {
   travelDates: CalendarDate | Date;
   departure: number | null;
   arrival: number | null;
+  passengers: string | null;
 }
 
 function HeroSection() {
@@ -151,7 +152,7 @@ function HeroSection() {
       </swiper-container>
 
       {/* Cards */}
-      <div className="absolute lg:w-7/12 xl:w-8/12 min-h-96 z-10">
+      <div className="lg:w-7/12 xl:w-8/12 min-h-96 py-24 z-10">
         <div className="w-full h-full">
           <div className="w-full h-full bg-white rounded-md py-4 px-6">
             <div className="">
@@ -200,6 +201,7 @@ function HeroSection() {
                     travelDates: today(getLocalTimeZone()),
                     departure: null,
                     arrival: null,
+                    passengers: null,
                   }}
                   onSubmit={(values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
                     // setTimeout(() => {
@@ -219,12 +221,12 @@ function HeroSection() {
                   }}
                 >
                   {({ setFieldValue, values }) => (
-                    <Form className="flex flex-row gap-2">
+                    <Form className="flex xl:flex-row lg:flex-col md:flex-col gap-2">
                       <Field name="travelDates">
                         {({ field }) => (
                           <DateRangePicker
                             size="sm"
-                            className="xl:w-2/6"
+                            className="xl:w-2/6 lg:w-full md:w-full"
                             label="Choose dates"
                             visibleMonths={2}
                             pageBehavior="single"
@@ -237,50 +239,52 @@ function HeroSection() {
                         )}
                       </Field>
 
-                      <Field name="departure">
-                        {({ field }) => (
-                          <Select
-                            size={"sm"}
-                            label="Departure"
-                            className="max-w-xs xl:w-1/6"
-                            onChange={(departure) => setFieldValue("departure", departure)}
-                            isRequired
-                            {...field}
-                          >
-                            {countries.map((country, key) => (
-                              <SelectItem key={key} value={country.value}>
-                                {country.name}
-                              </SelectItem>
-                            ))}
-                          </Select>
-                        )}
-                      </Field>
+                      <div className="flex flex-row gap-2 xl:w-2/6 lg:w-full">
+                        <Field name="departure">
+                          {({ field }) => (
+                            <Select
+                              size={"sm"}
+                              label="Departure"
+                              className="xl:w-1/2 lg:w-1/2"
+                              onChange={(departure) => setFieldValue("departure", departure)}
+                              isRequired
+                              {...field}
+                            >
+                              {countries.map((country, key) => (
+                                <SelectItem key={key} value={country.value}>
+                                  {country.name}
+                                </SelectItem>
+                              ))}
+                            </Select>
+                          )}
+                        </Field>
 
-                      <Field name="arrival">
-                        {({ field }) => (
-                          <Select
-                            size={"sm"}
-                            label="Arrival"
-                            className="max-w-xs xl:w-1/6"
-                            onChange={(arrival) => setFieldValue("arrival", arrival)}
-                            isRequired
-                            {...field}
-                          >
-                            {countries.map((country, key) => (
-                              <SelectItem key={key} value={country.value}>
-                                {country.name}
-                              </SelectItem>
-                            ))}
-                          </Select>
-                        )}
-                      </Field>
+                        <Field name="arrival">
+                          {({ field }) => (
+                            <Select
+                              size={"sm"}
+                              label="Arrival"
+                              className="xl:w-1/2 lg:w-1/2"
+                              onChange={(arrival) => setFieldValue("arrival", arrival)}
+                              isRequired
+                              {...field}
+                            >
+                              {countries.map((country, key) => (
+                                <SelectItem key={key} value={country.value}>
+                                  {country.name}
+                                </SelectItem>
+                              ))}
+                            </Select>
+                          )}
+                        </Field>
+                      </div>
 
-                      <Field name="arrival">
+                      <Field name="passengers">
                         {({ field }) => (
                           <Select
                             size={"sm"}
                             label="Passangers"
-                            className="max-w-xs xl:w-1/6"
+                            className="xl:w-1/6 lg:w-full"
                             isRequired
                           >
                             {passangers.map((passanger, key) => (
