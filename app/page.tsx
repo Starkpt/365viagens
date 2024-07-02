@@ -1,7 +1,7 @@
 "use client";
 
 // COMPONENTS
-import HeroSection from "./components/HeroSection";
+import HeroSection from "./components/HeroSection/HeroSection";
 import NavigationBar from "./components/NavigationBar";
 
 export default function Home() {
