@@ -1,6 +1,6 @@
 import { CalendarDate } from "@internationalized/date";
 
-export type ITravelDates = CalendarDate | Date | any;
+export type ITravelDates = CalendarDate | Date;
 export type IDeparture = number | string | null;
 export type IArrival = number | string | null;
 export type IPassengers = number | string | null;

@@ -1,5 +1,5 @@
 // LIBRARIES
-import { getLocalTimeZone, today } from "@internationalized/date";
+import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { Button, DateRangePicker, Select, SelectItem } from "@nextui-org/react";
 import { Field, Form, Formik, FormikHelpers, FormikValues } from "formik";
 
@@ -29,6 +29,27 @@ const initialValues: PromosFormValues = {
   passengers: null,
 };
 
+
+// Started
+function PromoFormDateRangePicker({ field, form }) {
+  return (
+    <DateRangePicker
+      size="sm"
+      className="xl:w-2/6 w-full"
+      label="Choose dates"
+      visibleMonths={2}
+      pageBehavior="single"
+      minValue={today(getLocalTimeZone())}
+      defaultValue={{
+        start: today(getLocalTimeZone()).add({ days: 1 }),
+        end: today(getLocalTimeZone()).add({ days: 4 }),
+      }}
+      onChange={(value) => form.setFieldValue(field.name, value)}
+      isRequired
+    />
+  );
+}
+
 function HeroSectionForm() {
   return (
     <>
@@ -41,48 +62,40 @@ function HeroSectionForm() {
         <div>
           <Formik
             initialValues={{
-              travelDates: today(getLocalTimeZone()),
+              travelDates: {
+                start: today(getLocalTimeZone()),
+                end: parseDate("2024-04-08"),
+              },
               departure: null,
               arrival: null,
               passengers: null,
             }}
             onSubmit={(
-              values: FormikValues | PromosFormValues,
-              { setSubmitting }: FormikHelpers<FormikValues | PromosFormValues>
-            ) => {
-              setTimeout(() => {
-                //   alert(JSON.stringify(values, null, 2));
-                //   setSubmitting(false);
+              values,
+              // : FormikValues | PromosFormValues,
+              { setSubmitting }
+            ) =>
+              // : FormikHelpers<FormikValues | PromosFormValues>
+              {
+                setTimeout(() => {
+                  //   alert(JSON.stringify(values, null, 2));
+                  //   setSubmitting(false);
 
-                const formData = {
-                  travelDates: values.travelDates,
-                  departure: values.departure ? countries[Number(values.departure)].value : null,
-                  arrival: values.arrival ? countries[Number(values.arrival)].value : null,
-                  passengers: values.passengers,
-                };
+                  const formData = {
+                    travelDates: values.travelDates,
+                    departure: values.departure ? countries[Number(values.departure)].value : null,
+                    arrival: values.arrival ? countries[Number(values.arrival)].value : null,
+                    passengers: values.passengers,
+                  };
 
-                console.log({ values, c1: values.departure, c2: values.arrival, formData });
-              }, 500);
-            }}
+                  console.log({ values, c1: values.departure, c2: values.arrival, formData });
+                }, 500);
+              }
+            }
           >
             {({ setFieldValue, values, isSubmitting }) => (
               <Form className="flex xl:flex-row flex-col gap-2">
-                <Field name="travelDates">
-                  {({ field }) => (
-                    <DateRangePicker
-                      size="sm"
-                      className="xl:w-2/6 w-full"
-                      label="Choose dates"
-                      visibleMonths={2}
-                      pageBehavior="single"
-                      minValue={today(getLocalTimeZone())}
-                      defaultValue={today(getLocalTimeZone())}
-                      onChange={(travelDates) => setFieldValue("travelDates", travelDates)}
-                      isRequired
-                      {...field}
-                    />
-                  )}
-                </Field>
+                <Field name="travelDates" component={PromoFormDateRangePicker} />
 
                 <div className="flex flex-row gap-2 xl:w-2/6 lg:w-full">
                   <Field name="departure">
