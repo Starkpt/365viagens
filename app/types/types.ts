@@ -6,7 +6,7 @@ export type IArrival = number | string | null;
 export type IPassengers = number | string | null;
 
 export interface PromosFormValues {
-  travelDates: ITravelDates;
+  travelDates: { start: ITravelDates; end: ITravelDates };
   departure: IDeparture;
   arrival: IArrival;
   passengers: IPassengers;

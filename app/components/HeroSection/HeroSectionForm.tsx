@@ -1,7 +1,7 @@
 // LIBRARIES
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
-import { Button, DateRangePicker, Select, SelectItem } from "@nextui-org/react";
-import { Field, Form, Formik, FormikHelpers, FormikValues } from "formik";
+import { Button, DateRangePicker, RangeValue, Select, SelectItem } from "@nextui-org/react";
+import { Field, FieldProps, Form, Formik } from "formik";
 
 // Swiper
 // import function to register Swiper custom elements
@@ -15,7 +15,7 @@ import "swiper/css/autoplay";
 import "swiper/swiper-bundle.css";
 
 // TYPES
-import { PromosFormValues } from "@/app/types/types";
+import { ITravelDates, PromosFormValues } from "@/app/types/types";
 
 // DATA
 import { countries } from "@/app/data/countries";
@@ -23,15 +23,17 @@ import { passengers } from "@/app/data/passengers";
 
 // Define the initial values
 const initialValues: PromosFormValues = {
-  travelDates: today(getLocalTimeZone()),
+  travelDates: {
+    start: today(getLocalTimeZone()),
+    end: parseDate("2024-04-08"),
+  },
   departure: null,
   arrival: null,
   passengers: null,
 };
 
-
 // Started
-function PromoFormDateRangePicker({ field, form }) {
+function PromoFormDateRangePicker({ field, form }: FieldProps<RangeValue<ITravelDates>>) {
   return (
     <DateRangePicker
       size="sm"
@@ -61,37 +63,22 @@ function HeroSectionForm() {
       <div className="my-5">
         <div>
           <Formik
-            initialValues={{
-              travelDates: {
-                start: today(getLocalTimeZone()),
-                end: parseDate("2024-04-08"),
-              },
-              departure: null,
-              arrival: null,
-              passengers: null,
+            initialValues={initialValues}
+            onSubmit={(values, { setSubmitting }) => {
+              setTimeout(() => {
+                //   alert(JSON.stringify(values, null, 2));
+                //   setSubmitting(false);
+
+                const formData = {
+                  travelDates: values.travelDates,
+                  departure: values.departure ? countries[Number(values.departure)].value : null,
+                  arrival: values.arrival ? countries[Number(values.arrival)].value : null,
+                  passengers: values.passengers,
+                };
+
+                console.log({ values, formData });
+              }, 500);
             }}
-            onSubmit={(
-              values,
-              // : FormikValues | PromosFormValues,
-              { setSubmitting }
-            ) =>
-              // : FormikHelpers<FormikValues | PromosFormValues>
-              {
-                setTimeout(() => {
-                  //   alert(JSON.stringify(values, null, 2));
-                  //   setSubmitting(false);
-
-                  const formData = {
-                    travelDates: values.travelDates,
-                    departure: values.departure ? countries[Number(values.departure)].value : null,
-                    arrival: values.arrival ? countries[Number(values.arrival)].value : null,
-                    passengers: values.passengers,
-                  };
-
-                  console.log({ values, c1: values.departure, c2: values.arrival, formData });
-                }, 500);
-              }
-            }
           >
             {({ setFieldValue, values, isSubmitting }) => (
               <Form className="flex xl:flex-row flex-col gap-2">

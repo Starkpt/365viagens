@@ -2,9 +2,6 @@
 import { useEffect, useRef } from "react";
 
 // LIBRARIES
-import { getLocalTimeZone, today } from "@internationalized/date";
-import { Button, DateRangePicker, Select, SelectItem } from "@nextui-org/react";
-import { Field, Form, Formik, FormikHelpers } from "formik";
 import Image from "next/image";
 
 // Swiper
@@ -23,11 +20,7 @@ import "swiper/swiper-bundle.css";
 import { SwiperClass } from "swiper/react";
 
 // DATA (DUMMY)
-import { countries } from "@/app/data/countries";
-import { images } from "@/app/data/external_images";
-import { passengers } from "@/app/data/passengers";
 import { travels } from "@/app/data/travels";
-import { PromosFormValues } from "@/app/types/types";
 
 const swiperBreakpoints = {
   640: {
@@ -49,7 +42,6 @@ const swiperBreakpoints = {
 };
 
 function HeroSectionSwiper() {
-  const heroSwiperRef = useRef<HTMLElement & { swiper: SwiperClass }>(null);
   const travelCardsSwiperRef = useRef<HTMLElement & { swiper: SwiperClass }>(null);
 
   useEffect(() => {

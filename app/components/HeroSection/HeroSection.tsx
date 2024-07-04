@@ -21,8 +21,8 @@ import { SwiperClass } from "swiper/react";
 
 // DATA (DUMMY)
 import { images } from "@/app/data/external_images";
-import HeroSectionSwiper from "./HeroSectionSwiper";
 import HeroSectionForm from "./HeroSectionForm";
+import HeroSectionSwiper from "./HeroSectionSwiper";
 
 function HeroSection() {
   const heroSwiperRef = useRef<HTMLElement & { swiper: SwiperClass }>(null);
