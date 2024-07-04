@@ -1,7 +1,7 @@
 // LIBRARIES
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import { Button, DateRangePicker, RangeValue, Select, SelectItem } from "@nextui-org/react";
-import { Field, FieldProps, Form, Formik } from "formik";
+import { Field, FieldProps, Form, Formik, FormikFormProps, FormikProps } from "formik";
 
 // Swiper
 // import function to register Swiper custom elements
@@ -15,13 +15,13 @@ import "swiper/css/autoplay";
 import "swiper/swiper-bundle.css";
 
 // TYPES
-import { ITravelDates, PromosFormValues } from "@/app/types/types";
+import { IArrival, IDeparture, ITravelDates, PromosFormValues } from "@/app/types/types";
 
 // DATA
 import { countries } from "@/app/data/countries";
-import { passengers } from "@/app/data/passengers";
+import { tickets } from "@/app/data/tickets";
 
-// Define the initial values
+// Form initial values
 const initialValues: PromosFormValues = {
   travelDates: {
     start: today(getLocalTimeZone()),
@@ -29,10 +29,10 @@ const initialValues: PromosFormValues = {
   },
   departure: null,
   arrival: null,
-  passengers: null,
+  tickets: null,
 };
 
-// Started
+// DateRangePicker custom component
 function PromoFormDateRangePicker({ field, form }: FieldProps<RangeValue<ITravelDates>>) {
   return (
     <DateRangePicker
@@ -52,7 +52,82 @@ function PromoFormDateRangePicker({ field, form }: FieldProps<RangeValue<ITravel
   );
 }
 
+// DeparturePlace custom component
+function PromoFormDeparturePlace({ field, form }: FieldProps<IDeparture>) {
+  return (
+    <Select
+      size={"sm"}
+      label="Departure"
+      className="xl:w-1/2 lg:w-1/2"
+      onChange={(value) => form.setFieldValue(field.name, value)}
+      isRequired
+    >
+      {countries.map((country, key) => (
+        <SelectItem key={key} value={country.value}>
+          {country.name}
+        </SelectItem>
+      ))}
+    </Select>
+  );
+}
+
+// ArrivalPlace custom component
+function PromoFormArrivalPlace({ field, form }: FieldProps<IArrival>) {
+  return (
+    <Select
+      size={"sm"}
+      label="Arrival"
+      className="xl:w-1/2 lg:w-1/2"
+      onChange={(value) => form.setFieldValue(field.name, value)}
+      isRequired
+    >
+      {countries.map((country, key) => (
+        <SelectItem key={key} value={country.value}>
+          {country.name}
+        </SelectItem>
+      ))}
+    </Select>
+  );
+}
+
+// ArrivalPlace custom component
+function PromoFormTickets({ field, form }: FieldProps<IArrival>) {
+  return (
+    <Select
+      size={"sm"}
+      label="Tickets"
+      className="xl:w-1/6 lg:w-full"
+      onChange={(value) => form.setFieldValue(field.name, value)}
+      isRequired
+    >
+      {tickets.map((ticket, key) => (
+        <SelectItem key={key} value={ticket.value}>
+          {ticket.name}
+        </SelectItem>
+      ))}
+    </Select>
+  );
+}
+
 function HeroSectionForm() {
+  const onSubmit = (
+    values: PromosFormValues,
+    { setSubmitting }: { setSubmitting: FormikFormProps }
+  ) => {
+    setTimeout(() => {
+      //   alert(JSON.stringify(values, null, 2));
+      //   setSubmitting(false);
+
+      const formData = {
+        travelDates: values.travelDates,
+        departure: values.departure ? countries[Number(values.departure)].value : null,
+        arrival: values.arrival ? countries[Number(values.arrival)].value : null,
+        tickets: values.tickets,
+      };
+
+      console.log({ values, formData });
+    }, 500);
+  };
   return (
     <>
       <div className="">
@@ -62,85 +137,17 @@ function HeroSectionForm() {
 
       <div className="my-5">
         <div>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                //   alert(JSON.stringify(values, null, 2));
-                //   setSubmitting(false);
-
-                const formData = {
-                  travelDates: values.travelDates,
-                  departure: values.departure ? countries[Number(values.departure)].value : null,
-                  arrival: values.arrival ? countries[Number(values.arrival)].value : null,
-                  passengers: values.passengers,
-                };
-
-                console.log({ values, formData });
-              }, 500);
-            }}
-          >
-            {({ setFieldValue, values, isSubmitting }) => (
+          <Formik initialValues={initialValues} onSubmit={onSubmit}>
+            {({ isSubmitting }) => (
               <Form className="flex xl:flex-row flex-col gap-2">
                 <Field name="travelDates" component={PromoFormDateRangePicker} />
 
                 <div className="flex flex-row gap-2 xl:w-2/6 lg:w-full">
-                  <Field name="departure">
-                    {({ field }: { field: { departure: string } }) => (
-                      <Select
-                        size={"sm"}
-                        label="Departure"
-                        className="xl:w-1/2 lg:w-1/2"
-                        onChange={(departure) => setFieldValue("departure", departure)}
-                        isRequired
-                        {...field}
-                      >
-                        {countries.map((country, key) => (
-                          <SelectItem key={key} value={country.value}>
-                            {country.name}
-                          </SelectItem>
-                        ))}
-                      </Select>
-                    )}
-                  </Field>
-
-                  <Field name="arrival">
-                    {({ field }) => (
-                      <Select
-                        size={"sm"}
-                        label="Arrival"
-                        className="xl:w-1/2 lg:w-1/2"
-                        onChange={(arrival) => setFieldValue("arrival", arrival)}
-                        isRequired
-                        {...field}
-                      >
-                        {countries.map((country, key) => (
-                          <SelectItem key={key} value={country.value}>
-                            {country.name}
-                          </SelectItem>
-                        ))}
-                      </Select>
-                    )}
-                  </Field>
+                  <Field name="departure" component={PromoFormDeparturePlace} />
+                  <Field name="arrival" component={PromoFormArrivalPlace} />
                 </div>
 
-                <Field name="passengers">
-                  {({ field }) => (
-                    <Select
-                      size={"sm"}
-                      label="Passengers"
-                      className="xl:w-1/6 lg:w-full"
-                      {...field}
-                      isRequired
-                    >
-                      {passengers.map((passanger, key) => (
-                        <SelectItem key={key} value={passanger.value}>
-                          {passanger.name}
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  )}
-                </Field>
+                <Field name="tickets" component={PromoFormTickets} />
 
                 <Button
                   type="submit"
