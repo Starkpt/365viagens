@@ -1,3 +1,5 @@
+"use client";
+
 // REACT
 import { useEffect, useRef } from "react";
 
@@ -38,7 +40,7 @@ function HeroSection() {
 
   return (
     <div
-      className="flex w-full relative justify-center items-center "
+      className="flex w-full relative justify-center items-center py-24"
       style={{ minHeight: "650px" }}
     >
       {/* Swiper */}
@@ -65,7 +67,7 @@ function HeroSection() {
         ))}
       </swiper-container>
 
-      <div className="xl:w-8/12 lg:w-7/12 md:w-8/12 w-10/12 min-h-96 py-24 z-10">
+      <div className="xl:w-8/12 lg:w-7/12 md:w-8/12 w-10/12 min-h-96 z-10">
         <div className="w-full h-full">
           <div className="w-full h-full bg-white rounded-md py-4 px-6">
             <HeroSectionSwiper />

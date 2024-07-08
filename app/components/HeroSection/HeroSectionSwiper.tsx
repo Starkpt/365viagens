@@ -1,3 +1,5 @@
+"use client";
+
 // REACT
 import { useEffect, useRef } from "react";
 
@@ -21,6 +23,7 @@ import { SwiperClass } from "swiper/react";
 
 // DATA (DUMMY)
 import { travels } from "@/app/data/travels";
+import { Button, Card, CardBody, CardFooter, CardHeader, Spinner } from "@nextui-org/react";
 
 const swiperBreakpoints = {
   640: {
@@ -63,32 +66,71 @@ function HeroSectionSwiper() {
       </div>
 
       <div className="my-5">
-        <swiper-container
-          ref={travelCardsSwiperRef}
-          modules={[EffectFade, Navigation, Autoplay]}
-          space-between="30"
-          loop="true"
-          autoplay='{"delay": 2500}'
-          style={{
-            height: "250px",
-            width: "100%",
-          }}
-          pagination="true"
-          // pagination-dynamic-bullets="true"
-        >
-          {travels.map((travel, id) => (
-            <swiper-slide key={id} className="h-5/6 drop-shadow-md">
-              <Image
-                priority={id === 0}
-                src={travel.imgSrc}
-                alt={travel.travelName}
-                fill
-                className="rounded-md"
-                style={{ objectFit: "cover" }}
-              />
-            </swiper-slide>
-          ))}
-        </swiper-container>
+        {travels && (
+          <swiper-container
+            ref={travelCardsSwiperRef}
+            // modules={[EffectFade, Navigation, Autoplay]}
+            modules={[EffectFade, Navigation]}
+            space-between="30"
+            // autoplay='{"delay": 2500}'
+            loop="true"
+            pagination="true"
+            // pagination-dynamic-bullets="true"
+            style={{
+              height: "250px",
+              width: "100%",
+            }}
+          >
+            {travels ? (
+              travels.map((travel, id) => (
+                <swiper-slide key={id} className="h-5/6 z-0">
+                  {travel && (
+                    <Card
+                      className="w-full h-full rounded-md"
+                      style={{
+                        // backgroundImage: `url('${travel.imgSrc.src}')`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                      }}
+                      isPressable
+                      isBlurred
+                      isHoverable
+                    >
+                      <Image
+                        priority={id === 0}
+                        src={travel.imgSrc}
+                        alt={travel.travelName}
+                        fill
+                        className="rounded-md"
+                        style={{ objectFit: "cover" }}
+                      />
+                      <CardBody>
+                        <div className="w-full">
+                          <h3 className="font-bold text-primary text-lg text-left">
+                            {travel.travelName}
+                          </h3>
+                          <p className="text-xs text-primary text-left">{travel.rnavtRef}</p>
+
+                          <Button
+                            size="sm"
+                            className="rounded-md w-fit px-3 min-w-12 h-6 bg-green-700 text-white font-semibold"
+                            style={{ fontSize: "0.75rem" }}
+                          >
+                            {travel.price}€
+                          </Button>
+                        </div>
+                      </CardBody>
+                    </Card>
+                  )}
+                </swiper-slide>
+              ))
+            ) : (
+              <swiper-slide>
+                <Spinner />
+              </swiper-slide>
+            )}
+          </swiper-container>
+        )}
       </div>
     </>
   );
